@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -13,25 +14,15 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
     }
 
+    private long lastTime;
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    public void onBackPressed() {
+        long ct=System.currentTimeMillis();
+        if (ct-lastTime<2000){
+            Toast.makeText(this,"",Toast.LENGTH_SHORT).show();
+            lastTime=ct;
+        }else {
+            super.onBackPressed();
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
